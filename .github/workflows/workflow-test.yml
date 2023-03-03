@@ -2,7 +2,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: windows-latest
     name: Microsoft 365 quick evaluation test
     steps:
     - name: Checkout
