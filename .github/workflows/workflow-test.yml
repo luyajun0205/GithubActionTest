@@ -27,5 +27,5 @@ jobs:
       with:
         report-name: 'test'
         deployment-ids: '[
-        "${{ steps.deployarm.outputs.deploymentId }}"
+        "${{ steps.deployarm.outputs.deploymentId }}" 
         ]'
