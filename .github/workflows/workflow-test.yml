@@ -18,7 +18,7 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ secrets.RESOURCE_GROUP}}
+        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
         template: ./deploy/storage.bicep
         parameters: storageAccountType=Standard_LRS
     - run: echo ${{ steps.deploybicep.outputs.deploymentId }}
