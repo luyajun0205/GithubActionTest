@@ -12,6 +12,17 @@ jobs:
       uses: Azure/login@v1.4.6
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+     
+    - name: Deploy with bicep
+      id: deploybicep
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.RESOURCE_GROUP}}
+        template: ./deploy/storage.bicep
+        parameters: storageAccountType=Standard_LRS
+    - run: echo ${{ steps.deploybicep.outputs.deploymentId }}
+
     - name: Deploy with ARM template
       id: deployarm
       uses: azure/arm-deploy@v1
@@ -27,5 +38,6 @@ jobs:
       with:
         report-name: 'test-1'
         deployment-ids: '[
-        "${{ steps.deployarm.outputs.deploymentId }}" 
+        "${{ steps.deployarm.outputs.deploymentId }}",
+        "${{ steps.deploybicep.outputs.deploymentId}}" 
         ]'
