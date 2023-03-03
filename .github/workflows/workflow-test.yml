@@ -25,7 +25,7 @@ jobs:
     - name: ACAT get quick assessment
       uses: azure/microsoft-365-certification-quick-evaluation@v1
       with:
-        report-name: 'test-1'
+        report-name: 'new-report'
         deployment-ids: '[
         "${{ steps.deployarm.outputs.deploymentId }}" 
         ]'
