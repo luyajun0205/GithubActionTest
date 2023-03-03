@@ -68,4 +68,4 @@
 	  "value": "[resourceId('Microsoft.Resources/deployments',deployment().name)]"
     }
   }
-}
+} 
