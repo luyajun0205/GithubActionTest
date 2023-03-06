@@ -33,6 +33,15 @@ jobs:
         parameters: storageAccountType=Standard_LRS
     - run: echo ${{ steps.deployarm.outputs.deploymentId }}
 
+    - name: Deploy with ARM template
+      id: deployarm
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+        template: ./deploy/keyvault.template.json
+    - run: echo ${{ steps.deployarm.outputs.deploymentId }}
+
     - name: ACAT get quick assessment
       uses: azure/microsoft-365-certification-quick-evaluation@v1
       with:
