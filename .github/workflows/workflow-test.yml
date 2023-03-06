@@ -34,7 +34,7 @@ jobs:
     - run: echo ${{ steps.deployarm.outputs.deploymentId }}
 
     - name: Deploy with ARM template
-      id: deployarm
+      id: deployarm1
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
