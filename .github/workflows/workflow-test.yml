@@ -24,7 +24,7 @@ jobs:
     - run: echo ${{ steps.deploybicep.outputs.deploymentId }}
 
     - name: Deploy with ARM template
-      id: deployarm
+      id: deployarm1
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
@@ -34,12 +34,22 @@ jobs:
     - run: echo ${{ steps.deployarm.outputs.deploymentId }}
 
     - name: Deploy with ARM template
-      id: deployarm1
+      id: deployarm2
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
         resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
         template: ./deploy/keyvault.template.json
+    - run: echo ${{ steps.deployarm.outputs.deploymentId }}
+
+    - name: Deploy with ARM template
+      id: deployarm3
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+        template: ./deploy/vm.template.json
+        parameters: virtualMachines_name=$VIRTUALMACHINES_NAME disks_externalid=$DISKS_EXTERNALID networkInterfaces_externalid=$NETWORKINTERFACES_EXTERNALID
     - run: echo ${{ steps.deployarm.outputs.deploymentId }}
 
     - name: ACAT get quick assessment
