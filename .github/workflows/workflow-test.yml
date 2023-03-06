@@ -28,6 +28,5 @@ jobs:
       with:
         report-name: 'test-0303-2'
         deployment-ids: '[
-        "${{ steps.deployarm.outputs.deploymentId }}",
-        "${{ steps.deploybicep.outputs.deploymentId}}" 
+        "${{ steps.deployarm.outputs.deploymentId }}"
         ]'
