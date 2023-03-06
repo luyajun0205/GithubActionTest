@@ -49,7 +49,7 @@ jobs:
         subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
         resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
         template: ./deploy/vm.template.json
-        parameters: virtualMachines_name=$VIRTUALMACHINES_NAME disks_externalid=$DISKS_EXTERNALID networkInterfaces_externalid=$NETWORKINTERFACES_EXTERNALID
+        parameters: virtualMachines_name=${{ vars.VIRTUALMACHINES_NAME }} disks_externalid=${{ vars.DISKS_EXTERNALID }} networkInterfaces_externalid=${{ vars.NETWORKINTERFACES_EXTERNALID }}
     - run: echo ${{ steps.deployarm.outputs.deploymentId }}
 
     - name: ACAT get quick assessment
