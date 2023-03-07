@@ -1,6 +1,20 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_virtualmachinetestmarch_name": {
+            "defaultValue": "",
+            "type": "String"
+        },
+        "disks_virtualmachinetestmarch_OsDisk_1_007f4b4934444299be07c71de515e63c_externalid": {
+            "defaultValue": "",
+            "type": "String"
+        },
+        "networkInterfaces_virtualmachinetestmarch29_externalid": {
+            "defaultValue": "",
+            "type": "String"
+        }
+    },
     "resources": [
         {
             "type": "Microsoft.Compute/virtualMachines",
