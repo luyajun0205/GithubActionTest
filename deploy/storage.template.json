@@ -63,9 +63,9 @@
       "type": "string",
       "value": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
     },
-	  "deploymentId": {
+    "deploymentId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Resources/deployments',deployment().name)]"
-    }
+      "value": "[resourceId('Microsoft.Resources/deployments',deployment().name)]" 
+      }
   }
 } 
