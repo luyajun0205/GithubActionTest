@@ -13,34 +13,34 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-    - name: Deploy SA with bicep
-      id: deploybicep
-      uses: azure/arm-deploy@v1
-      with:
-        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-        template: ./deploy/storage.bicep
-        parameters: storageAccountType=Standard_LRS
-    - run: echo ${{ steps.deploybicep.outputs.deploymentId }}
+    # - name: Deploy SA with bicep
+    #   id: deploybicep
+    #   uses: azure/arm-deploy@v1
+    #   with:
+    #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+    #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+    #     template: ./deploy/storage.bicep
+    #     parameters: storageAccountType=Standard_LRS
+    # - run: echo ${{ steps.deploybicep.outputs.deploymentId }}
 
-    - name: Deploy SA with ARM template
-      id: deployarm1
-      uses: azure/arm-deploy@v1
-      with:
-        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-        template: ./deploy/storage.template.json
-        parameters: storageAccountType=Standard_LRS
-    - run: echo ${{ steps.deployarm.outputs.deploymentId }}
+    # - name: Deploy SA with ARM template
+    #   id: deployarm1
+    #   uses: azure/arm-deploy@v1
+    #   with:
+    #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+    #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+    #     template: ./deploy/storage.template.json
+    #     parameters: storageAccountType=Standard_LRS
+    # - run: echo ${{ steps.deployarm.outputs.deploymentId }}
 
-    - name: Deploy KV with ARM template
-      id: deployarm2
-      uses: azure/arm-deploy@v1
-      with:
-        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-        template: ./deploy/keyvault.template.json
-    - run: echo ${{ steps.deployarm.outputs.deploymentId }}
+    # - name: Deploy KV with ARM template
+    #   id: deployarm2
+    #   uses: azure/arm-deploy@v1
+    #   with:
+    #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+    #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+    #     template: ./deploy/keyvault.template.json
+    # - run: echo ${{ steps.deployarm.outputs.deploymentId }}
 
     - name: Deploy VM with ARM template
       id: deployarm3
@@ -57,8 +57,5 @@ jobs:
       with:
         report-name: 'test-0307-01'
         deployment-ids: '[
-        "${{ steps.deploybicep.outputs.deploymentId}}",
-        "${{ steps.deployarm.outputs.deploymentId }}", 
-        "${{ steps.deployarm.outputs.deploymentId }}", 
         "${{ steps.deployarm.outputs.deploymentId }}"
         ]'
