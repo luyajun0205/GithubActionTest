@@ -13,7 +13,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-    - name: Deploy with bicep
+    - name: Deploy SA with bicep
       id: deploybicep
       uses: azure/arm-deploy@v1
       with:
@@ -23,7 +23,7 @@ jobs:
         parameters: storageAccountType=Standard_LRS
     - run: echo ${{ steps.deploybicep.outputs.deploymentId }}
 
-    - name: Deploy with ARM template
+    - name: Deploy SA with ARM template
       id: deployarm1
       uses: azure/arm-deploy@v1
       with:
@@ -33,7 +33,7 @@ jobs:
         parameters: storageAccountType=Standard_LRS
     - run: echo ${{ steps.deployarm.outputs.deploymentId }}
 
-    - name: Deploy with ARM template
+    - name: Deploy KV with ARM template
       id: deployarm2
       uses: azure/arm-deploy@v1
       with:
@@ -42,14 +42,14 @@ jobs:
         template: ./deploy/keyvault.template.json
     - run: echo ${{ steps.deployarm.outputs.deploymentId }}
 
-    - name: Deploy with ARM template
+    - name: Deploy VM with ARM template
       id: deployarm3
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
         resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
         template: ./deploy/vm.template.json
-        parameters: virtualMachines_name=${{ secrets.VIRTUALMACHINES_NAME }} disks_externalid=${{ secrets.DISKS_EXTERNALID }} networkInterfaces_externalid=${{ secrets.NETWORKINTERFACES_EXTERNALID }}
+        parameters: virtualMachines_virtualmachinetestmarch_name=${{ secrets.VIRTUALMACHINES_VIRTUALMACHINETESTMARCH_NAME }} disks_virtualmachinetestmarch_OsDisk_1_007f4b4934444299be07c71de515e63c_externalid=${{ secrets.DISKS_VIRTUALMACHINETESTMARCH_OSDISK_1_007F4B4934444299BE07C71DE515E63C_EXTERNALID }} networkInterfaces_virtualmachinetestmarch29_externalid=${{ secrets.NETWORKINTERFACES_VIRTUALMACHINETESTMARCH29_EXTERNALID }}
     - run: echo ${{ steps.deployarm.outputs.deploymentId }}
 
     - name: ACAT get quick assessment

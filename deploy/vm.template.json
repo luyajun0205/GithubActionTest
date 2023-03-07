@@ -1,12 +1,11 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "variables": {},
     "resources": [
         {
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2022-11-01",
-            "name": "[parameters('virtualMachines_name')]",
+            "name": "[parameters('virtualMachines_virtualmachinetestmarch_name')]",
             "location": "centralindia",
             "tags": {
                 "personaltest": "true"
@@ -27,12 +26,12 @@
                     },
                     "osDisk": {
                         "osType": "Windows",
-                        "name": "[concat(parameters('virtualMachines_name'), '_OsDisk_1_007f4b4934444299be07c71de515e63c')]",
+                        "name": "[concat(parameters('virtualMachines_virtualmachinetestmarch_name'), '_OsDisk_1_007f4b4934444299be07c71de515e63c')]",
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
                             "storageAccountType": "Premium_LRS",
-                            "id": "[parameters('disks_externalid')]"
+                            "id": "[parameters('disks_virtualmachinetestmarch_OsDisk_1_007f4b4934444299be07c71de515e63c_externalid')]"
                         },
                         "deleteOption": "Delete",
                         "diskSizeGB": 127
@@ -59,7 +58,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[parameters('networkInterfaces_externalid')]",
+                            "id": "[parameters('networkInterfaces_virtualmachinetestmarch29_externalid')]",
                             "properties": {
                                 "deleteOption": "Detach"
                             }
