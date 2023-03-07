@@ -21,12 +21,12 @@ jobs:
         resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
         template: ./deploy/storage.template.json
         parameters: storageAccountType=Standard_LRS
-    - run: echo ${{ steps.deployarm.outputs.deploymentId }}
+    - run: echo ${{ steps.deployarm1.outputs.deploymentId }}
 
     - name: ACAT get quick assessment
       uses: azure/microsoft-365-certification-quick-evaluation@v1
       with:
         report-name: 'test-0307-01'
         deployment-ids: '[
-        "${{ steps.deployarm.outputs.deploymentId }}"
+        "${{ steps.deployarm1.outputs.deploymentId }}"
         ]'
