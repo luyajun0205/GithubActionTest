@@ -65,7 +65,7 @@
     },
 	"deploymentId": {
 	  "type": "string",
-	  "value": "[resourceId('Microsoft.Resources/deployments',deployment().name)]"
+	  "value": "[resourceId('Microsoft.Resources/deployments',deployment().name)]" 
     }
   }
 } 
