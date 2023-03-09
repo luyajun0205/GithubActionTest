@@ -32,14 +32,14 @@ jobs:
     #     parameters: storageAccountType=Standard_LRS
     # - run: echo ${{ steps.deployarmSA.outputs.deploymentId }}
 
-    # - name: Deploy KV with ARM template
-    #   id: deployarmKV
+    # - name: Deploy LogicAPP with ARM template
+    #   id: deployarmLogicapp
     #   uses: azure/arm-deploy@v1
     #   with:
     #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
     #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-    #     template: ./deploy/keyvault.template.json
-    # - run: echo ${{ steps.deployarmKV.outputs.deploymentId }}
+    #     template: ./deploy/logicapp.template.json
+    # - run: echo ${{ steps.deployarmLogicapp.outputs.deploymentId }}
 
     # - name: Deploy VM with ARM template
     #   id: deployarmVM
