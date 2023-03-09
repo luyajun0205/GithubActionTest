@@ -66,5 +66,5 @@ jobs:
       with:
         report-name: 'test-0309-02'
         deployment-ids: '[
-        "${{ steps.deployarmWebapp.outputs.deploymentId }}"
+        "${{ steps.deployarmKV.outputs.deploymentId }}"
         ]'
