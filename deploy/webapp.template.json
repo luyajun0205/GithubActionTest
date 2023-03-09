@@ -192,5 +192,11 @@
                 "hostNameType": "Verified"
             }
         }
-    ]
+    ],
+    "outputs": {      
+        "deploymentId": {
+          "type": "string",
+          "value": "[resourceId('Microsoft.Resources/deployments',deployment().name)]"
+        }
+    }
 }
