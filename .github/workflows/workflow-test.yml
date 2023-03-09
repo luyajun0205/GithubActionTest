@@ -66,5 +66,5 @@ jobs:
       with:
         report-name: 'test-0309-01'
         deployment-ids: '[
-        "${{ steps.deployarmWebapp.outputs.deploymentId }}"
+        "904a8fac-3a1c-47d9-8c97-096d2f37cff0"
         ]'
