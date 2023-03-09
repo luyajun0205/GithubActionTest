@@ -12,52 +12,59 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-    - name: Deploy SA with bicep
-      id: deploybicep
-      uses: azure/arm-deploy@v1
-      with:
-        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-        template: ./deploy/storage.bicep
-        parameters: storageAccountType=Standard_LRS
-    - run: echo ${{ steps.deploybicep.outputs.deploymentId }}
+    # - name: Deploy SA with bicep
+    #   id: deploybicep
+    #   uses: azure/arm-deploy@v1
+    #   with:
+    #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+    #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+    #     template: ./deploy/storage.bicep
+    #     parameters: storageAccountType=Standard_LRS
+    # - run: echo ${{ steps.deploybicep.outputs.deploymentId }}
 
-    - name: Deploy SA with ARM template
-      id: deployarmSA
-      uses: azure/arm-deploy@v1
-      with:
-        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-        template: ./deploy/storage.template.json
-        parameters: storageAccountType=Standard_LRS
-    - run: echo ${{ steps.deployarmSA.outputs.deploymentId }}
+    # - name: Deploy SA with ARM template
+    #   id: deployarmSA
+    #   uses: azure/arm-deploy@v1
+    #   with:
+    #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+    #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+    #     template: ./deploy/storage.template.json
+    #     parameters: storageAccountType=Standard_LRS
+    # - run: echo ${{ steps.deployarmSA.outputs.deploymentId }}
 
-    - name: Deploy KV with ARM template
-      id: deployarmKV
-      uses: azure/arm-deploy@v1
-      with:
-        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-        template: ./deploy/keyvault.template.json
-    - run: echo ${{ steps.deployarmKV.outputs.deploymentId }}
+    # - name: Deploy KV with ARM template
+    #   id: deployarmKV
+    #   uses: azure/arm-deploy@v1
+    #   with:
+    #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+    #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+    #     template: ./deploy/keyvault.template.json
+    # - run: echo ${{ steps.deployarmKV.outputs.deploymentId }}
 
-    - name: Deploy VM with ARM template
-      id: deployarmVM
+    # - name: Deploy VM with ARM template
+    #   id: deployarmVM
+    #   uses: azure/arm-deploy@v1
+    #   with:
+    #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+    #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+    #     template: ./deploy/vm.template.json
+    #     parameters: virtualMachines_virtualmachinetestmarch_name=${{ secrets.VIRTUALMACHINES_VIRTUALMACHINETESTMARCH_NAME }} disks_virtualmachinetestmarch_OsDisk_1_007f4b4934444299be07c71de515e63c_externalid=${{ secrets.DISKS_VIRTUALMACHINETESTMARCH_OSDISK_1_007F4B4934444299BE07C71DE515E63C_EXTERNALID }} networkInterfaces_virtualmachinetestmarch29_externalid=${{ secrets.NETWORKINTERFACES_VIRTUALMACHINETESTMARCH29_EXTERNALID }}
+    # - run: echo ${{ steps.deployarmVM.outputs.deploymentId }}
+
+    - name: Deploy WebApp with ARM template
+      id: deployarmWebapp
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
         resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-        template: ./deploy/vm.template.json
-        parameters: virtualMachines_virtualmachinetestmarch_name=${{ secrets.VIRTUALMACHINES_VIRTUALMACHINETESTMARCH_NAME }} disks_virtualmachinetestmarch_OsDisk_1_007f4b4934444299be07c71de515e63c_externalid=${{ secrets.DISKS_VIRTUALMACHINETESTMARCH_OSDISK_1_007F4B4934444299BE07C71DE515E63C_EXTERNALID }} networkInterfaces_virtualmachinetestmarch29_externalid=${{ secrets.NETWORKINTERFACES_VIRTUALMACHINETESTMARCH29_EXTERNALID }}
-    - run: echo ${{ steps.deployarmVM.outputs.deploymentId }}
+        template: ./deploy/webapp.template.json
+        parameters: serverfarms_ASP_externalid=${{ secrets.SERVERFARMS_ASP_EXTERNALID }}
+    - run: echo ${{ steps.deployarmWebapp.outputs.deploymentId }}
 
     - name: ACAT get quick assessment
       uses: azure/microsoft-365-certification-quick-evaluation@v1
       with:
-        report-name: 'test-0307-02'
+        report-name: 'test-0309-01'
         deployment-ids: '[
-        "${{ steps.deployarmKV.outputs.deploymentId }}",
-        "${{ steps.deployarmSA.outputs.deploymentId }}",
-        "${{ steps.deployarmVM.outputs.deploymentId }}",
-        "${{ steps.deploybicep.outputs.deploymentId }}"
+        "${{ steps.deployarmWebapp.outputs.deploymentId }}"
         ]'
