@@ -170,7 +170,7 @@
                 ],
                 "scmIpSecurityRestrictionsUseMain": false,
                 "http20Enabled": false,
-                "minTlsVersion": "1.0",
+                "minTlsVersion": "1.2",
                 "scmMinTlsVersion": "1.2",
                 "ftpsState": "FtpsOnly",
                 "preWarmedInstanceCount": 0,
