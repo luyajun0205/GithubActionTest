@@ -10,7 +10,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Delay
-      run:  sleep 3000
+      run:  sleep 10
     - name: Azure login
       uses: Azure/login@v1.4.6
       with:
