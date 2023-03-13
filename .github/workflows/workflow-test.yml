@@ -9,15 +9,24 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+
     - name: Delay
       run:  sleep 60
+
     - name: Azure login
       uses: Azure/login@v1.4.6
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: Create Resource Group
       run: |
         az group create --name ${{ secrets.TESTRESOURCEGROUP }} --location eastus
+
+    - name: Delete Resource Group
+      run: |
+        az group delete --name ${{ secrets.TESTRESOURCEGROUP }} --yes
+
+
         
     # - name: Deploy SA with bicep
     #   id: deploybicep
