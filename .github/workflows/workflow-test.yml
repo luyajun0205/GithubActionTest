@@ -15,7 +15,6 @@ jobs:
       uses: Azure/login@v1.4.6
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
     - name: Create Resource Group
       run: |
         az group create --name ${{ secrets.TESTRESOURCEGROUP }} --location eastus
