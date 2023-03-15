@@ -28,44 +28,44 @@ jobs:
 
 
         
-    # - name: Deploy SA with bicep
-    #   id: deploybicep
-    #   uses: azure/arm-deploy@v1
-    #   with:
-    #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-    #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-    #     template: ./deploy/storage.bicep
-    #     parameters: storageAccountType=Standard_LRS
-    # - run: echo ${{ steps.deploybicep.outputs.deploymentId }}
+    - name: Deploy SA with bicep
+      id: deploybicep
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+        template: ./deploy/storage.bicep
+        parameters: storageAccountType=Standard_LRS
+    - run: echo ${{ steps.deploybicep.outputs.deploymentId }}
 
-    # - name: Deploy SA with ARM template
-    #   id: deployarmSA
-    #   uses: azure/arm-deploy@v1
-    #   with:
-    #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-    #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-    #     template: ./deploy/storage.template.json
-    #     parameters: storageAccountType=Standard_LRS
-    # - run: echo ${{ steps.deployarmSA.outputs.deploymentId }}
+    - name: Deploy SA with ARM template
+      id: deployarmSA
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+        template: ./deploy/storage.template.json
+        parameters: storageAccountType=Standard_LRS
+    - run: echo ${{ steps.deployarmSA.outputs.deploymentId }}
 
-    # - name: Deploy LogicAPP with ARM template
-    #   id: deployarmLogicapp
-    #   uses: azure/arm-deploy@v1
-    #   with:
-    #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-    #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-    #     template: ./deploy/logicapp.template.json
-    # - run: echo ${{ steps.deployarmLogicapp.outputs.deploymentId }}
+    - name: Deploy LogicAPP with ARM template
+      id: deployarmLogicapp
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+        template: ./deploy/logicapp.template.json
+    - run: echo ${{ steps.deployarmLogicapp.outputs.deploymentId }}
 
-    # - name: Deploy VM with ARM template
-    #   id: deployarmVM
-    #   uses: azure/arm-deploy@v1
-    #   with:
-    #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-    #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-    #     template: ./deploy/vm.template.json
-    #     parameters: virtualMachines_virtualmachinetestmarch_name=${{ secrets.VIRTUALMACHINES_VIRTUALMACHINETESTMARCH_NAME }} disks_virtualmachinetestmarch_OsDisk_1_007f4b4934444299be07c71de515e63c_externalid=${{ secrets.DISKS_VIRTUALMACHINETESTMARCH_OSDISK_1_007F4B4934444299BE07C71DE515E63C_EXTERNALID }} networkInterfaces_virtualmachinetestmarch29_externalid=${{ secrets.NETWORKINTERFACES_VIRTUALMACHINETESTMARCH29_EXTERNALID }}
-    # - run: echo ${{ steps.deployarmVM.outputs.deploymentId }}
+    - name: Deploy VM with ARM template
+      id: deployarmVM
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+        template: ./deploy/vm.template.json
+        parameters: virtualMachines_virtualmachinetestmarch_name=${{ secrets.VIRTUALMACHINES_VIRTUALMACHINETESTMARCH_NAME }} disks_virtualmachinetestmarch_OsDisk_1_007f4b4934444299be07c71de515e63c_externalid=${{ secrets.DISKS_VIRTUALMACHINETESTMARCH_OSDISK_1_007F4B4934444299BE07C71DE515E63C_EXTERNALID }} networkInterfaces_virtualmachinetestmarch29_externalid=${{ secrets.NETWORKINTERFACES_VIRTUALMACHINETESTMARCH29_EXTERNALID }}
+    - run: echo ${{ steps.deployarmVM.outputs.deploymentId }}
 
     - name: Deploy WebApp with ARM template
       id: deployarmWebapp
@@ -82,5 +82,9 @@ jobs:
       with:
         report-name: 'test-0315-01'
         deployment-ids: '[
-        "${{ steps.deployarmWebapp.outputs.deploymentId }}"
+        "${{ steps.deployarmWebapp.outputs.deploymentId }}",
+        "${{ steps.deploybicep.outputs.deploymentId }}",
+        "${{ steps.deployarmSA.outputs.deploymentId }}",
+        "${{ steps.deployarmLogicapp.outputs.deploymentId }}",
+        "${{ steps.deployarmVM.outputs.deploymentId }}"
         ]'
