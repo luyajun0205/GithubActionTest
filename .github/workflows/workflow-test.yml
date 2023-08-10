@@ -10,8 +10,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Delay
-      run:  sleep 60
+    # - name: Delay
+    #   run:  sleep 60
 
     - name: Azure login
       uses: Azure/login@v1.4.6
@@ -25,9 +25,7 @@ jobs:
     # - name: Delete Resource Group
     #   run: |
     #     az group delete --name ${{ secrets.TESTRESOURCEGROUP }} --yes
-
-
-        
+     
     - name: Deploy SA with bicep
       id: deploybicep
       uses: azure/arm-deploy@v1
