@@ -55,15 +55,15 @@ jobs:
     #     template: ./deploy/logicapp.template.json
     # - run: echo ${{ steps.deployarmLogicapp.outputs.deploymentId }}
 
-    # - name: Deploy VM with ARM template
-    #   id: deployarmVM
-    #   uses: azure/arm-deploy@v1
-    #   with:
-    #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-    #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-    #     template: ./deploy/vm.template.json
-    #     parameters: virtualMachines_virtualmachinetestmarch_name=${{ secrets.VIRTUALMACHINES_VIRTUALMACHINETESTMARCH_NAME }} disks_virtualmachinetestmarch_OsDisk_1_007f4b4934444299be07c71de515e63c_externalid=${{ secrets.DISKS_VIRTUALMACHINETESTMARCH_OSDISK_1_007F4B4934444299BE07C71DE515E63C_EXTERNALID }} networkInterfaces_virtualmachinetestmarch29_externalid=${{ secrets.NETWORKINTERFACES_VIRTUALMACHINETESTMARCH29_EXTERNALID }}
-    # - run: echo ${{ steps.deployarmVM.outputs.deploymentId }}
+    - name: Deploy VM with ARM template
+      id: deployarmVM
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+        template: ./deploy/vm.template.json
+        parameters: virtualMachines_windowsvmoct_name=${{ secrets.VIRTUALMACHINES_WINDOWSVMOCT_NAME }} disks_windowsvmoct_disk1_ace6903023cc4b1c976970277029a96c_externalid=${{ secrets.DISKS_WINDOWSVMOCT_DISK1_ACE6903023CC4B1C976970277029A96C_EXTERNALID }} networkInterfaces_windowsvmoct448_z1_externalid=${{ secrets.NETWORKINTERFACES_WINDOWSVMOCT448_Z1_EXTERNALID }}
+    - run: echo ${{ steps.deployarmVM.outputs.deploymentId }}
 
     # - name: Deploy WebApp with ARM template
     #   id: deployarmWebapp

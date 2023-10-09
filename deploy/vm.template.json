@@ -2,31 +2,29 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "virtualMachines_virtualmachinetestmarch_name": {
+        "virtualMachines_windowsvmoct_name": {
             "defaultValue": "",
             "type": "String"
         },
-        "disks_virtualmachinetestmarch_OsDisk_1_007f4b4934444299be07c71de515e63c_externalid": {
+        "disks_windowsvmoct_disk1_ace6903023cc4b1c976970277029a96c_externalid": {
             "defaultValue": "",
             "type": "String"
         },
-        "networkInterfaces_virtualmachinetestmarch29_externalid": {
+        "networkInterfaces_windowsvmoct448_z1_externalid": {
             "defaultValue": "",
             "type": "String"
         }
     },
+    "variables": {},
     "resources": [
         {
             "type": "Microsoft.Compute/virtualMachines",
-            "apiVersion": "2022-11-01",
-            "name": "[parameters('virtualMachines_virtualmachinetestmarch_name')]",
-            "location": "centralindia",
-            "tags": {
-                "personaltest": "true"
-            },
-            "identity": {
-                "type": "SystemAssigned"
-            },
+            "apiVersion": "2023-03-01",
+            "name": "[parameters('virtualMachines_windowsvmoct_name')]",
+            "location": "eastus",
+            "zones": [
+                "1"
+            ],
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "Standard_B1s"
@@ -40,20 +38,21 @@
                     },
                     "osDisk": {
                         "osType": "Windows",
-                        "name": "[concat(parameters('virtualMachines_virtualmachinetestmarch_name'), '_OsDisk_1_007f4b4934444299be07c71de515e63c')]",
+                        "name": "[concat(parameters('virtualMachines_windowsvmoct_name'), '_disk1_ace6903023cc4b1c976970277029a96c')]",
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
                             "storageAccountType": "Premium_LRS",
-                            "id": "[parameters('disks_virtualmachinetestmarch_OsDisk_1_007f4b4934444299be07c71de515e63c_externalid')]"
+                            "id": "[parameters('disks_windowsvmoct_disk1_ace6903023cc4b1c976970277029a96c_externalid')]"
                         },
                         "deleteOption": "Delete",
                         "diskSizeGB": 127
                     },
-                    "dataDisks": []
+                    "dataDisks": [],
+                    "diskControllerType": "SCSI"
                 },
                 "osProfile": {
-                    "computerName": "virtualmachinet",
+                    "computerName": "[parameters('virtualMachines_windowsvmoct_name')]",
                     "adminUsername": "yajun",
                     "windowsConfiguration": {
                         "provisionVMAgent": true,
@@ -69,12 +68,19 @@
                     "allowExtensionOperations": true,
                     "requireGuestProvisionSignal": true
                 },
+                "securityProfile": {
+                    "uefiSettings": {
+                        "secureBootEnabled": true,
+                        "vTpmEnabled": true
+                    },
+                    "securityType": "TrustedLaunch"
+                },
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[parameters('networkInterfaces_virtualmachinetestmarch29_externalid')]",
+                            "id": "[parameters('networkInterfaces_windowsvmoct448_z1_externalid')]",
                             "properties": {
-                                "deleteOption": "Detach"
+                                "deleteOption": "Delete"
                             }
                         }
                     ]
