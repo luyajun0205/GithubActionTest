@@ -81,5 +81,6 @@ jobs:
         report-name: 'test-0412-01'
         deployment-ids: '[       
         "${{ steps.deploybicep.outputs.deploymentId }}",
-        "${{ steps.deployarmSA.outputs.deploymentId }}"
+        "${{ steps.deployarmSA.outputs.deploymentId }}",
+        "${{ steps.deployarmVM.outputs.deploymentId }}"
         ]'
