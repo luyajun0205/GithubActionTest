@@ -65,15 +65,15 @@ jobs:
         parameters: virtualMachines_windowsvmoct_name=${{ secrets.VIRTUALMACHINES_WINDOWSVMOCT_NAME }} disks_windowsvmoct_disk1_ace6903023cc4b1c976970277029a96c_externalid=${{ secrets.DISKS_WINDOWSVMOCT_DISK1_ACE6903023CC4B1C976970277029A96C_EXTERNALID }} networkInterfaces_windowsvmoct448_z1_externalid=${{ secrets.NETWORKINTERFACES_WINDOWSVMOCT448_Z1_EXTERNALID }}
     - run: echo ${{ steps.deployarmVM.outputs.deploymentId }}
 
-    # - name: Deploy WebApp with ARM template
-    #   id: deployarmWebapp
-    #   uses: azure/arm-deploy@v1
-    #   with:
-    #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-    #     resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
-    #     template: ./deploy/webapp.template.json
-    #     parameters: serverfarms_ASP_externalid=${{ secrets.SERVERFARMS_ASP_EXTERNALID }}
-    # - run: echo ${{ steps.deployarmWebapp.outputs.deploymentId }}
+    - name: Deploy WebApp with ARM template
+      id: deployarmWebapp
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.RESOURCE_GROUPNAME}}
+        template: ./deploy/webapp.template.json
+        parameters: serverfarms_ASP_OctRG_b5cf_externalid=${{ secrets.SERVERFARMS_ASP_OCTRG_B5CF_EXTERNALID }}
+    - run: echo ${{ steps.deployarmWebapp.outputs.deploymentId }}
 
     - name: ACAT get quick assessment
       uses: azure/microsoft-365-certification-quick-evaluation@v1.0.1
@@ -82,5 +82,6 @@ jobs:
         deployment-ids: '[       
         "${{ steps.deploybicep.outputs.deploymentId }}",
         "${{ steps.deployarmSA.outputs.deploymentId }}",
-        "${{ steps.deployarmVM.outputs.deploymentId }}"
+        "${{ steps.deployarmVM.outputs.deploymentId }}",
+        "${{ steps.deployarmWebapp.outputs.deploymentId }}"
         ]'

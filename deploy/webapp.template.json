@@ -2,11 +2,11 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "webAppName": {
-            "defaultValue": "[format('webApp-{0}', uniqueString(resourceGroup().id))]",
+        "sites_webappoct_name": {
+            "defaultValue": "webappoct",
             "type": "String"
         },
-        "serverfarms_ASP_externalid": {
+        "serverfarms_ASP_OctRG_b5cf_externalid": {
             "defaultValue": "",
             "type": "String"
         }
@@ -15,28 +15,25 @@
     "resources": [
         {
             "type": "Microsoft.Web/sites",
-            "apiVersion": "2022-03-01",
-            "name": "[parameters('webAppName')]",
+            "apiVersion": "2022-09-01",
+            "name": "[parameters('sites_webappoct_name')]",
             "location": "East US",
-            "tags": {
-                "webapptags": "true"
-            },
             "kind": "app",
             "properties": {
                 "enabled": true,
                 "hostNameSslStates": [
                     {
-                        "name": "[concat(parameters('webAppName'), '.azurewebsites.net')]",
+                        "name": "[concat(parameters('sites_webappoct_name'), '.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "hostType": "Standard"
                     },
                     {
-                        "name": "[concat(parameters('webAppName'), '.scm.azurewebsites.net')]",
+                        "name": "[concat(parameters('sites_webappoct_name'), '.scm.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "hostType": "Repository"
                     }
                 ],
-                "serverFarmId": "[parameters('serverfarms_ASP_externalid')]",
+                "serverFarmId": "[parameters('serverfarms_ASP_OctRG_b5cf_externalid')]",
                 "reserved": false,
                 "isXenon": false,
                 "hyperV": false,
@@ -56,7 +53,7 @@
                 "clientCertEnabled": false,
                 "clientCertMode": "Required",
                 "hostNamesDisabled": false,
-                "customDomainVerificationId": "D16F2E9B707AC96389AD6CF5369F11C155CF3593D2A97D9E839626E671F62CDB",
+                "customDomainVerificationId": "2F92F70CF76E7644B625D4BFD761783CD87EC5C8964463662FDD084B1A0FE8C2",
                 "containerSize": 0,
                 "dailyMemoryTimeQuota": 0,
                 "httpsOnly": true,
@@ -68,45 +65,36 @@
         },
         {
             "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('webAppName'), '/ftp')]",
+            "apiVersion": "2022-09-01",
+            "name": "[concat(parameters('sites_webappoct_name'), '/ftp')]",
             "location": "East US",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_webappoct_name'))]"
             ],
-            "tags": {
-                "webapptags": "true"
-            },
             "properties": {
                 "allow": true
             }
         },
         {
             "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('webAppName'), '/scm')]",
+            "apiVersion": "2022-09-01",
+            "name": "[concat(parameters('sites_webappoct_name'), '/scm')]",
             "location": "East US",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_webappoct_name'))]"
             ],
-            "tags": {
-                "webapptags": "true"
-            },
             "properties": {
                 "allow": true
             }
         },
         {
             "type": "Microsoft.Web/sites/config",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('webAppName'), '/web')]",
+            "apiVersion": "2022-09-01",
+            "name": "[concat(parameters('sites_webappoct_name'), '/web')]",
             "location": "East US",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_webappoct_name'))]"
             ],
-            "tags": {
-                "webapptags": "true"
-            },
             "properties": {
                 "numberOfWorkers": 1,
                 "defaultDocuments": [
@@ -120,15 +108,14 @@
                     "index.php",
                     "hostingstart.html"
                 ],
-                "netFrameworkVersion": "v6.0",
+                "netFrameworkVersion": "v7.0",
                 "requestTracingEnabled": false,
                 "remoteDebuggingEnabled": false,
-                "remoteDebuggingVersion": "VS2019",
                 "httpLoggingEnabled": false,
                 "acrUseManagedIdentityCreds": false,
                 "logsDirectorySizeLimit": 35,
                 "detailedErrorLoggingEnabled": false,
-                "publishingUsername": "$webapprgmarch",
+                "publishingUsername": "$webappoct",
                 "scmType": "None",
                 "use32BitWorkerProcess": true,
                 "webSocketsEnabled": false,
@@ -174,6 +161,7 @@
                 "scmMinTlsVersion": "1.2",
                 "ftpsState": "FtpsOnly",
                 "preWarmedInstanceCount": 0,
+                "elasticWebAppScaleLimit": 0,
                 "functionsRuntimeScaleMonitoringEnabled": false,
                 "minimumElasticInstanceCount": 0,
                 "azureStorageAccounts": {}
@@ -181,14 +169,14 @@
         },
         {
             "type": "Microsoft.Web/sites/hostNameBindings",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('webAppName'), '/', parameters('webAppName'), '.azurewebsites.net')]",
+            "apiVersion": "2022-09-01",
+            "name": "[concat(parameters('sites_webappoct_name'), '/', parameters('sites_webappoct_name'), '.azurewebsites.net')]",
             "location": "East US",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_webappoct_name'))]"
             ],
             "properties": {
-                "siteName": "webapprgmarch",
+                "siteName": "webappoct",
                 "hostNameType": "Verified"
             }
         }
